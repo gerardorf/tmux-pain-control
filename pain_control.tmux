@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-default_pane_resize="5"
+default_pane_resize="2"
 
 # tmux show-option "q" (quiet) flag does not set return value to 1, even though
 # the option does not exist. This function patches that.
@@ -16,14 +16,10 @@ get_tmux_option() {
 }
 
 pane_navigation_bindings() {
-	tmux bind-key h   select-pane -L
-	tmux bind-key C-h select-pane -L
-	tmux bind-key j   select-pane -D
-	tmux bind-key C-j select-pane -D
-	tmux bind-key k   select-pane -U
-	tmux bind-key C-k select-pane -U
-	tmux bind-key l   select-pane -R
-	tmux bind-key C-l select-pane -R
+	tmux bind-key h select-pane -L
+	tmux bind-key j select-pane -D
+	tmux bind-key k select-pane -U
+	tmux bind-key l select-pane -R
 }
 
 window_move_bindings() {
@@ -33,14 +29,14 @@ window_move_bindings() {
 
 pane_resizing_bindings() {
 	local pane_resize=$(get_tmux_option "@pane_resize" "$default_pane_resize")
-	tmux bind-key -r H resize-pane -L "$pane_resize"
-	tmux bind-key -r J resize-pane -D "$pane_resize"
-	tmux bind-key -r K resize-pane -U "$pane_resize"
-	tmux bind-key -r L resize-pane -R "$pane_resize"
+	tmux bind-key -r C-H resize-pane -L "$pane_resize"
+	tmux bind-key -r C-J resize-pane -D "$pane_resize"
+	tmux bind-key -r C-K resize-pane -U "$pane_resize"
+	tmux bind-key -r C-L resize-pane -R "$pane_resize"
 }
 
 pane_split_bindings() {
-	tmux bind-key "7" split-window -h -c "#{pane_current_path}"
+	tmux bind-key "/" split-window -h -c "#{pane_current_path}"
 	tmux bind-key "-" split-window -v -c "#{pane_current_path}"
 }
 
